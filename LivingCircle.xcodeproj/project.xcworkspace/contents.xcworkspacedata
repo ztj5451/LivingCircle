@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:LivingCircle.xcodeproj">
+      location = "self:/Users/Iphone_work/LivingCircle/LivingCircle.xcodeproj">
    </FileRef>
 </Workspace>
