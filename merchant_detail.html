@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="app.css"/>
+
+	</head>
+
+	<body>
+
+		<div id="slider" class="mui-slider" >
+			<div class="mui-slider-group mui-slider-loop" id="top_slider">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+		<div class="title" style="height: 120px;background-color: white;">
+			<div>
+				<div style="float: left;width: 20%;margin-top: 20px;margin-left: 15px;">
+					生活圈
+				</div>
+				<div style="text-align: center;font-size: 20px;padding-top: 15px;float: left;width: 60%;" id="merchant_name">
+
+				</div>
+
+				<div id="share" style="widows: 20%;padding-top: 5px;">
+					<img style="background-color: #dddddd;height: 30px;width: 1px;"/>
+					<img src="share.png" style="height: 30px;width: 30px;"/>
+					<p style="float: right;margin-right: 20px;">
+						分享
+					</p>
+				</div>
+
+			</div>
+
+			<div id="zk" style="text-align: center;margin-top: 15px;font-size: 22px;color: #F8623F;">
+
+			</div>
+			<div style="margin-top: 10px;" id="merchant_jy">
+
+			</div>
+		</div>
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell mui-media">
+
+				<div >
+					<div style="float: left;width: 33%;text-align: center;">
+						<img src="renzheng.png" style="float: left;height: 20px;margin-top: 5px;">
+						<div style="font-size: 14px;margin-top: 5px;">
+							商户认证
+						</div>
+					</div>
+					<div style="float: left;width: 33%;text-align: center;">
+						<img src="renzheng.png" style="float: left;height:20px;margin-top: 5px;">
+						<div style="font-size: 14px;margin-top: 5px;">
+							在线支付
+						</div>
+					</div>
+					<div style="float: left;width: 33%;text-align: center;">
+						<img src="renzheng.png" style="float: left;height: 20px;margin-top: 5px;">
+						<div style="font-size: 14px;margin-top: 5px;">
+							如实描述
+						</div>
+					</div>
+				</div>
+
+			</li>
+		</ul>
+		<ul class="mui-table-view mui-table-view-chevron">
+			<li id="driver_map" class="mui-table-view-cell mui-media">
+				<a class="mui-navigate-right"> <img class="mui-media-object mui-pull-left" src="map.png" style="height: 30px;width: 30px;margin-top: 5px;">
+				<div class="mui-media-body">
+					查看所在位置
+					<p class='mui-ellipsis'>
+						地图导航将给您引路
+					</p>
+				</div> </a>
+			</li>
+			<li class="mui-table-view-cell mui-media">
+				<a class="mui-navigate-right" > <img class="mui-media-object mui-pull-left" src="jifen.png" style="height: 30px;width: 30px;margin-top: 5px;">
+				<div class="mui-media-body">
+					积分换好礼
+					<p class='mui-ellipsis' id="bz_jf">
+
+					</p>
+				</div> </a>
+			</li>
+			<li class="mui-table-view-cell mui-media">
+				<a id="coupon_div" class='mui-navigate-right' > <img class="mui-media-object mui-pull-left" src="quan.png" style="height: 30px;width: 30px;margin-top: 5px;">
+				<div class="mui-media-body">
+					领取优惠券
+					<p class='mui-ellipsis'>
+						点击领取优惠券，惊喜更多
+					</p>
+				</div> </a>
+			</li>
+
+			<li class="mui-table-view-cell mui-media">
+				<a id="commit_div"class="mui-navigate-right"> <img class="mui-media-object mui-pull-left" src="pinglun.png" style="height: 30px;width: 30px;margin-top: 5px;">
+				<div class="mui-media-body">
+					大众点评&nbsp;&nbsp;&nbsp;&nbsp;<font id="sl_pl"></font>
+					<p class='mui-ellipsis'>
+						大众的评论才是最真实的
+					</p>
+				</div> </a>
+			</li>
+
+		</ul>
+
+		<script src="mui.min.js"></script>
+		<script src="jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var merchantInfo= merchantContent().split("#");
+//            var merchantId = window.AndroidWebView.getMerchantId();
+//            $("#commit_div").attr('href', "commit://yunrong?merchant_id=" + merchantId);
+//            $("#coupon_div").attr('href', "coupon://yunrong?merchant_id=" + merchantId);
+//            var temp = window.AndroidWebView.getJsonData();
+
+            var path = merchantInfo[3];
+            
+            var json = jQuery.parseJSON(merchantInfo[2]);
+            var lat=json.x;
+            var lng=json.y;
+            var data = json.file.split(",");
+            //上部滚动图片
+            $("#top_slider").append("<div class='mui-slider-item mui-slider-item-duplicate'>" + "<a href='#'>" + "<img src='" + path + data[4] + "'>" + "</a>" + "</div>" + "<div class='mui-slider-item'>" + "<a href='#'>" + "<img src='" + path + data[0] + "'>" + "</a>" + "</div>" + "<div class='mui-slider-item'>" + "<a href='#'>" + "<img src='" + path + data[1] + "'>" + "</a>" + "</div>" + "<div class='mui-slider-item'>" + "<a href='#'>" + "<img src='" + path + data[2] + "'>" + "</a>" + "</div>" + "<div class='mui-slider-item'>" + "<a href='#'>" + "<img src='" + path + data[3] + "'>" + "</a>" + "</div>" + "<div class='mui-slider-item'>" + "<a href='#'>" + "<img src='" + path + data[4] + "'>" + "</a>" + "</div>" + "<div class='mui-slider-item mui-slider-item-duplicate'>" + "<a href='#'>" + "<img src='" + path + data[0] + "'>" + "</a>" + "</div>");
+            $("#merchant_name").html(json.mc_gs);
+            //$("#merchant_jy").append("<div style='float: left;width: 50%;text-align: center;font-size: 12px'>" + "<label>总交易量:</label>" + "<label>" + json.sl_jy + "</label>" + "</div>" + "<div style='float: left;display:none;width: 0%;text-align: center;font-size: 12px;'>" + "<label>月易量:</label>" + "<label>100</label>" + "</div>" + "<div style='float: left;width: 50%;text-align: center;font-size: 12px'>" + "<label>已有:</label>" + "<label>" + json.gz_sl + "关注</label>" + "</div>");
+            $("#merchant_jy").append("<div style='float: left;width: 50%;text-align: center;font-size: 12px'>" + "<label>总交易量:</label>" + "<label>" + json.sl_jy + "</label>" + "</div>"+ "<div style='float: left;width: 50%;text-align: center;font-size: 12px'>" + "<label>已有:</label>" + "<label>" + json.gz_sl + "关注</label>" + "</div>");
+
+            if (json.bz_zk.length == 0) {
+                $("#zk").append("生活圈用户优惠专享");
+            } else {
+                $("#zk").append(json.bz_zk);
+            }
+
+            $("#sl_pl").append("(" + json.sl_pl + ")");
+            $("#bz_jf").append(json.bz_jf);
+            mui.init({
+                swipeBack : true //启用右滑关闭功能
+            });
+
+            var slider = mui("#slider");
+            slider.slider({
+                interval : 5000
+            });
+            $("#driver_map").click(function() {
+                location.href = "drivermap://vip?lat="+lat+"&lng="+lng;
+            });
+            //分享
+            $("#share").click(function(){
+            	window.AndroidWebView.toShare();
+            });
+            
+		</script>
+	</body>
+
+</html>

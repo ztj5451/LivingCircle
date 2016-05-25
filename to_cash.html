@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<style>
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<div id="select_bank">
+
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+					<div class="mui-media-body">
+						提现金额:
+						<div class="mui-input-row">
+							<label>￥</label>
+							<input id="cash_money" type="number" class="mui-input-clear" placeholder="请输入提现金额">
+						</div>
+					</div> </a>
+				</li>
+				<li>
+
+					<ul id="cash_rate" class="mui-table-view mui-table-view-radio">
+
+					</ul>
+
+				</li>
+				<li id="tocash_all" class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+					<div class="mui-media-body">
+
+						<p class='mui-ellipsis'>
+							当前钱包金额<font id="total">100.0</font>元，全部提现.
+						</p>
+					</div> </a>
+				</li>
+
+			</ul>
+		</div>
+		<div style="text-align: center;margin-top: 10px;">
+			<p>
+				第二天15:00之前到账
+			</p>
+		</div>
+		<div style="margin: 10px;">
+			<button id="tocashBtn" type="button" class="mui-btn mui-btn-success mui-btn-block">
+				提现
+			</button>
+		</div>
+
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js" ></script>
+	<script>
+        var rate = window.AndroidWebView.getRateData();
+        var rateJson = jQuery.parseJSON(rate);
+        var select_rate = "";
+        var select_day = "";
+
+        $.each(rateJson.lb, function(i, item) {
+            if (i == 0) {
+                $("#cash_rate").append("<li class='mui-table-view-cell mui-selected'><a class='mui-navigate-right'> " + item.tx_lx + " </a><p style='display:none'>" + item.tx_fl + "</p></li>");
+                select_rate = $("#cash_rate").find("p").text();
+                select_day = $("#cash_rate").find("a").text();
+            } else {
+                $("#cash_rate").append("<li class='mui-table-view-cell'><a class='mui-navigate-right'> " + item.tx_lx + " </a></li>");
+
+            }
+
+        });
+        $(".mui-table-view-cell").click(function() {
+            select_rate = $("#cash_rate").find("p").text();
+            select_day = $("#cash_rate").find("a").text();
+
+        });
+        var bankInfo = window.AndroidWebView.getBankInfo();
+        if (bankInfo != "") {
+            var bank = bankInfo.split(",");
+            //$("#select_bank").append("<a id='bank' class='mui-navigate-right'><img class='mui-media-object mui-pull-left' src='../../bankImage/" + bank[2] + ".png'><div class='mui-media-body'>" + bank[1] + "<p class='mui-ellipsis'>" + bank[0] + "</p></div></a>");
+			 $("#select_bank").append("<a id='bank' class='mui-navigate-right'><div class='mui-media-body'>"+bank[0]+"<p class='mui-ellipsis'>"+bank[1]+"</p></div> </a>");
+        
+        } else {
+            $("#select_bank").append("<a id='bank' class='mui-navigate-right'><div class='mui-media-body'>请选择提现银行卡<p class='mui-ellipsis'>提现银行卡必须为储蓄卡</p></div> </a>");
+        
+        }
+        var total = window.AndroidWebView.getMoney();
+        $("#total").text(total);
+        /*
+        $("#bank").click(function() {
+            location.href = "popbanklist://yunrong?flag=toCash";
+        });
+        */
+        var cash_money = $("#cash_money");
+
+        $("#tocash_all").click(function() {
+            cash_money.val(total);
+        });
+        $("#tocashBtn").click(function() {
+            var temp = $("#select_bank").find("p").text();
+            if (!/^(\d{16}|\d{19})$/i.test(temp)) {
+                mui.toast("请选择提现银行卡!");
+            } else if (cash_money.val().length == 0) {
+                mui.toast("请输入提现金额!");
+            } else if (!/^\d+/i.test(cash_money.val()) && !/^([1-9]\d*(\.\d{1,2}))$/i.test(cash_money.val()) && !/^(0.[1-9])$/i.test(cash_money.val()) && !/^(0(\.\d{2}(<!00)))$/i.test(cash_money.val())) {
+                mui.toast("请输入提现金额!");
+            } else if (Number(total) - Number(cash_money.val()) < 0) {
+                mui.toast("请输入提现金额!");
+            } else {
+
+                window.AndroidWebView.toCash(cash_money.val(), select_day, select_rate);
+
+            }
+
+        });
+        mui.init({
+            swipeBack : true //启用右滑关闭功能
+        });
+	</script>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="one_line" style="margin-top: 3px;">
+			<div id="one_one" style="width: 33%;  float: left;">
+				<img class="common" src="../images/line_one.png" />
+			</div>
+
+			<div id="one_two" style="width: 65%;float: left;margin-left: 2px;">
+				<div id="one_two_one">
+					<div id="line_one_one" style="float: left;width: 33%;">
+						<img src="../images/one_one.jpg" class="little" />
+					</div>
+					<div id="line_one_two" style="float: left;width: 33%;margin-left: 1px;margin-right: 1px;">
+						<img src="../images/one_two.jpg" class="little" />
+					</div>
+					<div id="line_one_three" style="float: left;width: 33%;">
+						<img src="../images/one_three.jpg" class="little" />
+					</div>
+				</div>
+				<div id="one_two_two" style="clear:  both;">
+					<div id="line_two_one" style="float: left;width: 33%;">
+						<img src="../images/one_four.jpg" class="little" />
+					</div>
+					<div id="line_two_two" style="float: left;width: 33%;margin-left: 1px;margin-right: 1px;">
+						<img src="../images/one_five.jpg" class="little" />
+					</div>
+					<div id="line_two_three" style="float: left;width: 33%;">
+						<img src="../images/one_six.jpg" class="little" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="two_line" style="margin-top: 3px;clear: both;">
+			<div id="two_one" style="width: 33%;  float: left;">
+				<img class="common" src="../images/line_two_one.png" />
+			</div>
+
+			<div id="two_two" style="width: 33%;float: left;margin-left: 2px;">
+				<img class="common" src="../images/line_two_two.png" />
+			</div>
+			<div id="two_three" style="width: 33%;float: left; ">
+				<img class="common" src="../images/line_two_three.png" />
+			</div>
+		</div>
+		<div id="three_line" style="margin-top: 3px;">
+			<div id="three_one" style="width: 33%;  float: left;">
+				<img class="common" src="../images/line_three_one.png" />
+			</div>
+
+			<div id="three_two" style="width: 33%;float: left;margin-left: 2px;">
+				<img class="common" src="../images/line_three_two.png" />
+			</div>
+			<div id="three_three" style="width: 33%;float: left; ">
+				<img class="common" src="../images/line_three_three.png" />
+			</div>
+		</div>
+		<!--第一行-->
+
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+
+	<script>
+		var temp = $(window).width();
+		var width = temp / 540 * 177;
+		var height = temp / 540 * 174;
+		var little_height=(height / 2)-2;
+		$(".common").css("height", height);
+		$(".little").css("height", little_height);
+		$("#one_two_one").css("height", height / 2);
+		$("#one_two_two").css("height", height / 2);
+		
+		function gotoList(position) {
+			window.AndroidWebView.gotoList(position);
+			
+		}
+		$("#one_one").click(function() {
+			gotoList(0);
+		});
+		$("#line_one_one").click(function() {
+			gotoList(1);
+		});
+		$("#line_one_two").click(function() {
+			gotoList(2);
+		});
+		$("#line_one_three").click(function() {
+			gotoList(3);
+		});
+		$("#line_two_one").click(function() {
+			gotoList(4);
+		});
+		$("#line_two_two").click(function() {
+			gotoList(5);
+		});
+		$("#line_two_three").click(function() {
+			gotoList(6);
+		});
+		$("#two_one").click(function() {
+			gotoList(7);
+		});
+		$("#two_two").click(function() {
+			gotoList(8);
+		});
+		$("#two_three").click(function() {
+			gotoList(9);
+		});
+		$("#three_one").click(function() {
+			gotoList(10);
+		});
+		$("#three_two").click(function() {
+			gotoList(11);
+		});
+		$("#three_three").click(function() {
+			gotoList(12);
+		});
+		
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+	</script>
+
+</html>

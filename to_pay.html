@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<script src="../js/jquery-1.7.2.min.js"></script>
+	</head>
+
+	<body>
+		<div id="pre_pay">
+			<ul class="mui-table-view" id="list">
+
+			</ul>
+			<div class="mui-content-padded" id="couponList">
+
+			</div>
+
+			<div  class="mui-content" style="margin-top:10px;">
+				<form class="mui-input-group">
+
+					<div class="mui-input-row">
+						<label>本次消费:</label>
+						<input id="totalMoney" type="number" class="mui-input-clear" placeholder="请输入消费金额">
+					</div>
+
+				</form>
+				<div style="margin:10px;">
+
+					<button id="toPay" type="button" class="mui-btn mui-btn-success mui-btn-block" >
+						支付
+					</button>
+				</div>
+
+			</div>
+		</div>
+		<div id="to_check" class="mui-content" style="display: none">
+			<form class="mui-input-group">
+
+				<div class="mui-input-row">
+					<label>本次消费:</label>
+					<input id="check_totalMoney" type="text" disabled="disabled" class="mui-input-clear" placeholder="0">
+				</div>
+				<div class="mui-input-row">
+					<label>优惠券:</label>
+					<input id="check_quanMoney" type="text" disabled="disabled" class="mui-input-clear" placeholder="0">
+				</div>
+				<div class="mui-input-row">
+					<label>折扣金额:</label>
+					<input id="check_zheMoney" type="text" disabled="disabled" class="mui-input-clear" placeholder="0">
+				</div>
+				<div class="mui-input-row">
+					<label>应付金额:</label>
+					<input id="check_toPayMoney" type="text" disabled="disabled" class="mui-input-clear" placeholder="0">
+				</div>
+
+			</form>
+			<div style="margin:10px;">
+
+				<button id="check_toPay"  class="mui-btn mui-btn-success mui-btn-block">
+					支付
+				</button>
+			</div>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery-1.7.2.min.js" charset="utf-8"></script>
+	</body>
+	<script>
+        var conponData = window.toPay.getCouponData();
+        var conponJson = jQuery.parseJSON(conponData);
+        $.each(conponJson.lb, function(i, item) {
+            $("#couponList").append("<button  type='button' style='color: white;background-color: " + item.quan_color + ";' class='mui-btn mui-btn-block'>" + item.quan_mc + "&nbsp;&nbsp;&nbsp;&nbsp;<font size='2'>" + item.quan_je_str + "</font></button>");
+        });
+
+        var temp = window.toPay.getJsonData();
+        var json = jQuery.parseJSON(temp);
+        var page, num, path;
+        page = json.page;
+        num = json.num;
+        path = json.path;
+
+        var temp2 = json.lb;
+        $.each(json.lb, function(i, item) {
+            var lev_shop = item.lev_shop;
+            if (item.lev_shop == "") {
+                lev_shop = 0;
+            }
+            var pf = item.pf;
+            if (item.pf == "") {
+                pf = 0;
+            } else {
+                pf = item.pf.substring(0, 3);
+            }
+
+            var kilometers = item.kilometers;
+            if (item.kilometers == "") {
+                kilometers = 0;
+            }
+            $("#list").append("<li class='mui-table-view-cell mui-media' >" + "<a>" + "<img class='mui-pull-left' src='" + path + item.pic + "' style='height: 100px;width: 100px; margin-top: -5px;margin-bottom: -5px;margin-left: -8px;'>" + "<div class='mui-media-body' style='float: right;'>" + "<div style='text-align: center;'>" + "<p style='font-size: 18px;color: #000000;'>" + item.mc_gs + "</p>" + "</div>" + "<div >" + "<div style='float: left;'>" + "<div>" + "<div style='float: left;'>" + "<p class='mui-ellipsis' style='margin-top: 6px;color: #1084bc;font-size: 16px;'>" + pf + "分 </p>" + "</div>" + "<p class='mui-ellipsis' style='color: #1084bc;padding-top:6px;font-size: 12px;margin-left: 50px;'>" + item.title + "</p>" + "</div>" + "<div>" + "<div style='float: left;margin-top: 2px;'>" + "<p class='mui-ellipsis' style='color: #F8623F;'>等级 " + lev_shop + "</p>" + "</div>" + "<div style='margin-left: 50px;'>" + "<img src='../images/one.png' style='height: 18px;' /><img src='../images/two.png' style='height: 18px;'/><img src='../images/three.png' style='height: 18px;'/>" + "</div>" + "</div>" + "<div>" + "<p class='mui-ellipsis' style='color: #FF9913;'>" + item.bz_zk + "</p>" + "</div>" + "</div>" + "<div style='float: right;margin-top:8px;margin-left: 12px;'>" + "<p class='mui-ellipsis' style='font-size: 12px;'>距离您" + kilometers + "km</p>" + "<p class='mui-ellipsis' style='font-size: 12px;'>已评论" + item.sl_pl + "条</p>" + "<p class='mui-ellipsis' style='font-size: 12px;'>已交易" + item.sl_jy + "笔</p>" + "</div>" + "</div>" + "</div>" + "</a>" + "</li>");
+
+        });
+        var reg = /^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/;
+
+        $("#toPay").click(function() {
+            var totalMoney = $("#totalMoney").val();
+            if (totalMoney.length == 0) {
+                mui.toast("请输入支付金额!");
+                return;
+            } else if (!reg.test(totalMoney)) {
+
+                mui.toast("请正确输入支付金额!");
+                return;
+            } else {
+                window.toPay.intentData(totalMoney + "", "0", "0");
+                // location.href = "to_check.html";
+                $("#pre_pay").hide();
+                $("#to_check").show();
+                toCheck();
+
+            }
+        });
+
+        function toCheck() {
+            var merchantValue = window.toPay.getMerchantInfo();
+            var flag = window.toPay.getFlag();
+            var merchantInfo = merchantValue.split(",");
+            var data = window.toPay.getIntentData();
+            var array = data.split(",");
+            $("#check_totalMoney").val(array[0] + '  元');
+            $("#check_quanMoney").val(array[1] + '  元');
+            $("#check_zheMoney").val(array[2] + '  元');
+            $("#check_toPayMoney").val((array[0] - array[1] - array[2]) + '  元');
+            var toPayMoney = array[0] - array[1] - array[2];
+
+            $("#check_toPay").click(function() {
+                if (flag == "wallet") {
+                    location.href = "topay://yunrong?merchantName=" + merchantInfo[0] + "&payMoney=" + toPayMoney + "&path=" + merchantInfo[1] + "&head=" + merchantInfo[2] + "&flag=" + flag;
+
+                } else {
+                    location.href = "loginwallet://vip?merchantName=" + merchantInfo[0] + "&payMoney=" + toPayMoney + "&path=" + merchantInfo[1] + "&head=" + merchantInfo[2] + "&flag=" + flag;
+                }
+
+            });
+        }
+	</script>
+</html>

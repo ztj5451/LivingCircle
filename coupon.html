@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<script src="../js/jquery-1.7.2.min.js"></script>
+		<style>
+			.mui-content-padded {
+				margin: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-content-padded" id="couponList">
+				<!--
+				<button type="button" class="mui-btn mui-btn-primary mui-btn-block">
+				30元代金券&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">满100元可用</font>
+				</button>
+				<button type="button" class="mui-btn mui-btn-success mui-btn-block">
+				50元代金券&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">满200元可用</font>
+				</button>
+				<button type="button" class="mui-btn mui-btn-warning mui-btn-block">
+				100元代金券&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">满500元可用</font>
+				</button>
+				<button type="button" class="mui-btn mui-btn-danger mui-btn-block">
+				200元代金券&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">满1000元可用</font>
+				</button>
+				-->
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/jquery-1.7.2.min.js"></script>
+	<script>
+        var conponData = window.AndroidWebView.getCouponData();
+        var json = jQuery.parseJSON(conponData);
+        $.each(json.lb, function(i, item) {
+            $("#couponList").append("<button type='button' style='background-color: "+item.quan_color+";' class='mui-btn mui-btn-primary mui-btn-block'>"+item.quan_mc+"&nbsp;&nbsp;&nbsp;&nbsp;<font size='2'>"+item.quan_je_str+"</font></button>");
+        });
+
+        $(".mui-btn").click(function() {
+            mui.toast("优惠券领取成功!");
+        });
+        var id = window.AndroidWebView.getMerchantId();
+
+	</script>
+</html>

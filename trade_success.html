@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<style>
+			.mui-content-padded {
+				margin: 10px;
+			}
+
+			body {
+				background-color: white;
+			}
+
+			#title {
+				text-align: center;
+				margin-top: 50px;
+			}
+
+			#trade {
+				text-align: center;
+				margin-top: 20px;
+			}
+
+			#trade p {
+				font-size: 20px;
+				color: black;
+			}
+
+			.line {
+				height: 1px;
+				width: 100%;
+				background-color: #E3E3E3;
+			}
+
+			.paycontent {
+				margin: 10px;
+			}
+
+			.success_btn {
+				margin: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div>
+			<div>
+				<div id="title">
+					<img src="../images/success.png" height="120px"/>
+				</div>
+				<div id="trade">
+					<p>
+						交易成功
+					</p>
+				</div>
+				<div class="line">
+
+				</div>
+				<div class="paycontent">
+					<div style="float: left;">
+						支付类型
+					</div>
+					<div id="category" style="text-align: right;">
+						建设银行 尾号5069
+					</div>
+
+				</div>
+				<div class="paycontent">
+					<div style="float: left;">
+						交易金额
+					</div>
+					<div id="money" style="text-align: right;">
+
+					</div>
+
+				</div>
+				<div class="line">
+
+				</div>
+				<div class="success_btn">
+					<button id="trade_success" type="button" class="mui-btn mui-btn-success mui-btn-block">
+						完 成
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js" ></script>
+	<script>
+		var data=window.AndroidWebView.tradeInfo();
+		var tradeInfo=data.split(",");
+		$("#category").html(tradeInfo[0]);
+		$("#money").html("￥"+tradeInfo[1]);
+        $("#trade_success").click(function() {
+            window.AndroidWebView.tradeSuccess();
+        });
+        mui.init({
+            swipeBack : true //启用右滑关闭功能
+        });
+	</script>
+
+</html>

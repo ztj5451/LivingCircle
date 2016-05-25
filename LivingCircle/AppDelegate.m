@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "LoginViewController.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -16,6 +16,11 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    LoginViewController *loginController=[[LoginViewController alloc]init];
+    UINavigationController *rootController=[[UINavigationController alloc]initWithRootViewController:loginController];
+    self.window.rootViewController=rootController;
+    [loginController release];
+    [rootController release];
     return YES;
 }
 
@@ -45,5 +50,10 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
+#pragma mark --释放资源
+-(void)dealloc
+{
+    
+    [super dealloc];
+}
 @end

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="app.css" />
+	</head>
+
+	<body>
+
+		<div id="slider" class="mui-slider" >
+			<div id="slider_images" class="mui-slider-group mui-slider-loop">
+				
+			</div>
+			<div id="slider-indicator" class="mui-slider-indicator">
+				
+			</div>
+		</div>
+		<script src="mui.min.js"></script>
+		<script src="jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+            
+        
+            var json = homeBanner();
+//            alert(data.path);
+//            var json = jQuery.parseJSON(data);
+//            alert(json);
+            var path = json.path;
+            
+            var images;
+            if (json.file_top != "") {
+                images = json.file_top.split(",");
+               
+                $("#slider_images").append("<div class='mui-slider-item mui-slider-item-duplicate'><a href='#'> <img src='" + path + images[images.length - 1] + "'> </a></div>");
+                $("#slider-indicator").append("<div class='mui-indicator mui-active'></div>");
+
+                for (var i = 0; i < images.length; i++) {
+                    $("#slider_images").append("<div class='mui-slider-item'><a href='#'> <img src='" + path + images[i] + "'> </a>");
+
+                }
+                for (var i = 1; i < images.length; i++) {
+                    $("#slider-indicator").append("<div class='mui-indicator'></div>");
+                }
+                $("#slider_images").append("<div class='mui-slider-item mui-slider-item-duplicate'><a href='#'> <img src='" + path + images[0] + "'> </a></div>");
+            }
+        
+            mui.init({
+                swipeBack : true //启用右滑关闭功能
+            });
+            var slider = mui("#slider");
+            slider.slider({
+                interval : 5000
+            });
+		</script>
+	</body>
+
+</html>

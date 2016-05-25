@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--第一行-->
+		<div>
+			<!--第一行左-->
+			<div style="margin-left:2px;float: left;">
+				<img src="../images/one.jpg" style="height: 100px;" />
+			</div>
+			<!--第一行右-->
+			<div style="margin-left: 110px;">
+				<div>
+					<div style="float: left;">
+						<img src="../images/one_one.jpg" style="height: 50px;" />
+					</div>
+					<div style="float: left;margin-left: 2px;">
+						<img src="../images/one_two.jpg" style="height: 50px;" />
+					</div>
+					<div style="margin-left: 140px;">
+						<img src="../images/one_three.jpg" style="height: 50px;" />
+					</div>
+				</div>
+				<div>
+					<div style="float: left;">
+						<img src="../images/one_four.jpg" style="height: 50px;" />
+					</div>
+					<div style="float: left;margin-left: 2px;">
+						<img src="../images/one_five.jpg" style="height: 50px;" />
+					</div>
+					<div style="margin-left: 140px;">
+						<img src="../images/one_six.jpg" style="height: 50px;" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+	</script>
+
+</html>

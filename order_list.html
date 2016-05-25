@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<style>
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div>
+
+			<ul id="orderList" class="mui-table-view">
+
+			</ul>
+
+		</div>
+
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+	<script>
+        var data = window.AndroidWebView.getData();
+        var jsonData = jQuery.parseJSON(data);
+        var path = jsonData.path;
+       
+        
+         $.each(jsonData.lb, function(i, item) {
+         var in_time = item.in_time.substring(5, 16);
+        var money=item.je;
+        if(item.je=="")
+        {
+        	money="0";
+        }
+         $("#orderList").append("<li class='mui-table-view-cell mui-media'><a ><img class='mui-media-object mui-pull-left' src='" + path + item.pic_shop + "'><div class='mui-media-body'>" + item.shop_mc_gs + "<div><div style='width: 50%;float: left;'><p class='mui-ellipsis'>金额:" + money + " 元</p></div><div style='width: 50%;float: left;text-align: right;'><p class='mui-ellipsis'>时间:" + in_time + "</p></div></div></div></a></li>");
+         });
+         
+        mui.init({
+            swipeBack : true //启用右滑关闭功能
+        });
+	</script>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="app.css" />
+		<link rel="stylesheet" href="image.css" />
+		<script src="jquery-1.7.2.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div id="slider" class="mui-slider">
+			<!--背景图片及头像-->
+			<div class="mui-slider-group mui-slider-loop" id="title_div">
+
+			</div>
+
+		</div>
+		<div class="title" style="height: 120px;background-color: white;">
+			<div>
+
+				<div style="textfont-size: 22px;padding-top: 15px;text-align: center">
+					<font id="mer_name"></font>&nbsp;&nbsp;&nbsp;&nbsp;<font size="2">商户详情</font>
+				</div>
+			</div>
+
+			<div style="margin:10px;font-size: 14px;color: #F8623F;">
+				&nbsp;&nbsp;&nbsp;&nbsp;<p id="mer_info"></p>
+				。
+			</div>
+
+		</div>
+		<ul class="mui-table-view mui-table-view-chevron">
+			<li class="mui-table-view-cell mui-media">
+				<a class="mui-navigate-right"> <img class="mui-media-object mui-pull-left" src="location.png" style="height: 30px;width: 30px;margin-top: 5px;">
+				<div class="mui-media-body">
+					商户地址
+					<p class='mui-ellipsis' id="address">
+
+					</p>
+				</div> </a>
+			</li>
+			<li class="mui-table-view-cell mui-media">
+				<a id="to_tel" class="mui-navigate-right"> <img class="mui-media-object mui-pull-left" src="phone.png" style="height: 30px;width: 30px;margin-top: 5px;">
+				<div class="mui-media-body">
+					电话
+					<p class='mui-ellipsis' id="mer_tel">
+
+					</p>
+				</div> </a>
+			</li>
+			<li class="mui-table-view-cell mui-media">
+				<a class='mui-navigate-right' href="javascript:;"> <img class="mui-media-object mui-pull-left" src="time.png" style="height: 30px;width: 30px;margin-top: 5px;">
+				<div class="mui-media-body">
+					营业时间
+					<p class='mui-ellipsis' id="mer_time">
+
+					</p>
+				</div> </a>
+			</li>
+		</ul>
+		<div style="background-color:#fff">
+			<div style="text-align: center;height: 20px;background-color:#efeff4">
+				<h5>更多商户详情</h5>
+			</div>
+			<ul class="mui-table-view mui-grid-view" id="more_info">
+
+			</ul>
+		</div>
+
+		<script src="mui.min.js"></script>
+		<script src="mui.zoom.js"></script>
+		<script src="mui.previewimage.js"></script>
+		<script type="text/javascript" charset="utf-8">
+            mui.previewImage();
+            var merchantInfo=merchantContent().split("#");
+            //var temp = window.AndroidWebView.getJsonData();
+            var json = jQuery.parseJSON(merchantInfo[2]);
+            var path =merchantInfo[3];
+            var fileList = json.file_xq.split(",");
+            $("#mer_name").append(json.mc_gs);
+            $("#mer_info").append(json.jj);
+            $("#address").append(json.jzd_xx);
+            $("#mer_tel").append(json.tel_xx);
+            $("#mer_time").append(json.time_yy);
+           // $("#to_tel").attr('href', "'"+json.tel_xx+"'");
+            $("#to_tel").click(function(){
+           		location.href="tel:"+json.tel_xx;
+           });
+            $("#title_div").append("<div class='mui-slider-item' style='height: 160px;'><img src='" + path + json.file_title + "' style='position:absolute;'>" + "<img src='" + path + json.pic + "' style='position:absolute;height: 80px;width: 80px;right: 10px;top:75px;' /></div>");
+            for (var i = 0; i < fileList.length; i++) {
+                $("#more_info").append("<li class='mui-table-view-cell mui-media mui-col-xs-4'><a href='#'><img class='mui-media-object' src='" + path + fileList[i] + "' data-preview-src='' data-preview-group='1'><div class='mui-media-body'></div></a></li>");
+
+            }
+
+            mui.init({
+                swipeBack : true //启用右滑关闭功能
+            });
+            var slider = mui("#slider");
+            slider.slider({
+                interval : 5000
+            });
+		</script>
+	</body>
+
+</html>

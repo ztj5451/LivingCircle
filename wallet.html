@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="app.css" />
+		<style>
+			h5 {
+				margin: 5px 7px;
+				color: white;
+			}
+			h6 {
+				color: white;
+			}
+			.bar img {
+				margin-top: 20px;
+				height: 30px;
+			}
+
+			#wallet_bar {
+				height: 110px;
+				background: grey;
+			}
+
+			#wallet_bar div {
+				width: 33%;
+				float: left;
+				text-align: center;
+				font-family: "微软雅黑";
+			}
+
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="mui-content">
+			<div id="wallet_bar">
+				<div id="topay" class="bar">
+					<img src="topay.png" />
+					<h5>扫码支付</h5>
+				</div>
+				<div id="income" class="bar ">
+					<img src="income.png"/>
+					<h5>我的零钱</h5><h6></h6>
+				</div>
+				<div id="bankcard" class="bar ">
+					<img src="bankcard.png"/>
+					<h5>银行卡</h5><h6></h6>
+				</div>
+			</div>
+
+			<div class="mui-card " style="margin-top: 20px; ">
+				<ul class="mui-table-view ">
+					<li class="mui-table-view-cell mui-media " style="display: none">
+						<a href="javascript:; " class="mui-navigate-right "> <img class="mui-media-object mui-pull-left " src="szmx.png ">
+						<div class="mui-media-body ">
+							收支明细
+							<p class='mui-ellipsis'>
+								查看每一笔交易记录
+							</p>
+						</div> </a>
+					</li>
+					<li id="chargeList" class="mui-table-view-cell mui-media ">
+						<a href="javascript:; " class="mui-navigate-right "> <img class="mui-media-object mui-pull-left " src="czjl.png ">
+						<div class="mui-media-body ">
+							充值记录
+							<p class='mui-ellipsis'>
+								查看历史钱包充值记录
+							</p>
+						</div> </a>
+					</li>
+					<li id="consumptionList" class="mui-table-view-cell mui-media ">
+						<a href="javascript:; " class="mui-navigate-right "> <img class="mui-media-object mui-pull-left " src="xfjl.png ">
+						<div class="mui-media-body ">
+							消费记录
+							<p class='mui-ellipsis'>
+								查看钱包消费明细
+							</p>
+						</div> </a>
+					</li>
+					<li id="cashList" class="mui-table-view-cell mui-media ">
+						<a href="javascript:; " class="mui-navigate-right "> <img class="mui-media-object mui-pull-left " src="txjl.png ">
+						<div class="mui-media-body ">
+							提现记录
+							<p class='mui-ellipsis'>
+								查看每一笔提现详情
+							</p>
+						</div> </a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+		<script src="mui.min.js "></script>
+		<script type="text/javascript" src="jquery-1.7.2.min.js" ></script>
+		<script>
+            var bankInfo = window.AndroidWebView.getBankInfo();
+            $("#bankcard h6").text(bankInfo);
+            var money = window.AndroidWebView.getWalletMoney();
+            $("#income h6").text(money);
+            //付款
+            $("#topay").click(function() {
+
+                location.href = "scan://yunrong";
+
+            });
+            //钱包
+            $("#income").click(function() {
+
+                location.href = "smallcharge://yunrong";
+            });
+            //银行卡
+            $("#bankcard").click(function() {
+
+                location.href = "cardlist://yunrong";
+            });
+
+            //提现记录
+            $("#cashList").click(function() {
+                location.href = "tocashlist://vip";
+            });
+            //充值记录
+            $("#chargeList").click(function() {
+                location.href = "chargelist://vip";
+            });
+            //消费记录
+            $("#consumptionList").click(function() {
+                location.href = "consumption://vip";
+            });
+            mui.init({
+                swipeBack : true //启用右滑关闭功能
+            });
+		</script>
+	</body>
+
+</html>

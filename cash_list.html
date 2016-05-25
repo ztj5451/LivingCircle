@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<style>
+			.mui-table h4, .mui-table h5, .mui-table .mui-h5, .mui-table .mui-h6, .mui-table p {
+				margin-top: 0;
+			}
+
+			.mui-table h4 {
+				line-height: 21px;
+				font-weight: 500;
+			}
+
+			.mui-table .oa-icon {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+			}
+
+			.mui-table .oa-icon-star-filled {
+				color: #f14e41;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div>
+			<div id="nodata" style="text-align: center;margin-top: 160px">
+				<img src="../images/nodata.png" />
+				<p>
+					暂时没有符合您的数据
+				</p>
+
+			</div>
+			<ul id="cashList" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+			</ul>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+
+	<script>
+        var cashListData = window.AndroidWebView.getCashListData();
+        if (cashListData != "") {
+            var json = jQuery.parseJSON(cashListData);
+            if (json.lb.length == 0) {
+                $("#cashList").hide();
+            } else {
+                $("#nodata").hide();
+                $.each(json.lb, function(i, item) {
+
+                    $("#cashList").append("<li class='mui-table-view-cell'><div class='mui-table'><div class='mui-table-cell mui-col-xs-10'><h4 class='mui-ellipsis-2'>" + item.bank + "</h4><h4 class='mui-ellipsis-2'>" + item.bank_num + "</h4><h5>申请人：" + item.bank_mc_u + "&nbsp;&nbsp;&nbsp;&nbsp;" + "提现金额:" + item.je + " 元</h5><h5>手续费:" + item.je_tx + "元&nbsp;&nbsp;&nbsp;&nbsp;实际到账:" + item.je_tx_sj + "元</h5><h5>备注:" + item.bz + "</h5><h5>申请时间:" + item.in_time + "</h5><h5>受理时间:" + item.sh_time + "</h5><h5>受理备注:" + item.sh_bz + "</h5><h5>处理备注:" + item.cl_bz + "</h5></div><div class='mui-table-cell mui-col-xs-2 mui-text-right'><span class='mui-h6'>" + item.Bs_sh + "</span><br/><span class='mui-h6'>" + item.Bs_cl + "</span></div></div></li>");
+                });
+            }
+
+        }
+        // $("#temp").click(function() {
+        // alert($(this).find('h4').text());
+        // });
+        mui.init({
+            swipeBack : true //启用右滑关闭功能
+        });
+	</script>
+
+</html>

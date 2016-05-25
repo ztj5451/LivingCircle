@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script src="../js/jquery-1.7.2.min.js"></script>
+		<script></script>
+		<style>
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+
+			#foot {
+				position: absolute;
+				bottom: 0;
+				height: 20px;
+				width: 100%;
+				text-align: center;
+				margin-bottom: 5px;
+			}
+
+			#head {
+				height: 30px;
+				text-align: left;
+				padding-left: 15px;
+				padding-top: 5px;
+				background-color: orange;
+			}
+
+			#head p {
+				color: white;
+			}
+
+			#middle {
+				text-align: center;
+				margin-top: 30px;
+			}
+
+			#buttons {
+				margin: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="head">
+			<p>
+				提现收费规则>
+			</p>
+		</div>
+		<div class="mui-content">
+			<div class="mui-content-padded" style="margin: 5px;">
+
+				<div id="middle">
+					<img src="../images/wallet_logo.png" style="height:100px"/>
+					<h4>我的零钱</h4>
+					<div>
+
+						<h2><font size='6'>￥</font><font id="money"></font></h2>
+					</div>
+
+				</div>
+				<div id="buttons">
+					<button id="charge" type="button" class="mui-btn mui-btn-success mui-btn-block">
+						充值
+					</button>
+					<button id="tocash" type="button" class="mui-btn mui-btn-block mui-btn-outlined">
+						提现
+					</button>
+				</div>
+				<div id="foot">
+
+					<p>
+						客服电话:<a href="tel:963600">963600</a>
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js" ></script>
+
+	<script>
+        $("#head").click(function() {
+            location.href = "cashrules://vip";
+        });
+
+        var walletMoney = window.AndroidWebView.getWalletMoney();
+
+        if (walletMoney == "0.00") {
+            $("#tocash").hide();
+        };
+        $("#money").text(walletMoney);
+        //充值
+        $("#charge").click(function() {
+            location.href = "popbanklist://yunrong?flag=toCharge";
+        });
+        //提现
+        $("#tocash").click(function() {
+
+            if (Number(walletMoney) < 1) {
+                mui.toast("提现金额必须大于1元!");
+            } else {
+                var isBindJson = jQuery.parseJSON(window.AndroidWebView.tixianCheck());
+                if (isBindJson.num != 0) {
+                    mui.toast("您绑定提现银行卡正在审核中!");
+                } else {
+                    var tixian = window.AndroidWebView.toTixian();
+                    var txJson = jQuery.parseJSON(tixian);
+
+                    if (txJson.num == 0) {
+                        location.href = "cashbankbind://vip";
+                    } else {
+                        var result = window.AndroidWebView.checkWalletPass();
+                        var json = jQuery.parseJSON(result);
+                        if (json.bs == "-1") {
+                            window.AndroidWebView.setWalletPass();
+                        } else if (json.bs == "1") {
+                            location.href = "loginwallet://vip";
+                        } else if (json.bs == "2") {
+                            location.href = "contact://vip?tel=" + json.tel_kf;
+                        }
+                    }
+
+                }
+            }
+
+        });
+        mui.init({
+            swipeBack : true //启用右滑关闭功能
+        });
+	</script>
+
+</html>

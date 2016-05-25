@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="app.css" />
+		<style>
+			h5 {
+				margin: 5px 7px;
+			}
+		</style>
+	</head>
+
+	<body>
+        <div>
+        
+		<form class="mui-input-group">
+			<div class="mui-input-row">
+				<label>验&nbsp;&nbsp;证&nbsp;&nbsp;码:</label>
+				<input id="yzm" maxlength="6" type="tel" class="mui-input-clear" placeholder="请输入验证码">
+			</div>
+
+			<div class="mui-input-row mui-password">
+				<label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
+				<input id="password" type="password" class="mui-input-password" placeholder="请输入密码">
+			</div>
+			<div class="mui-input-row mui-password">
+				<label>确认密码:</label>
+				<input id="confirm_pass" type="password" class="mui-input-password" placeholder="请输入确认密码">
+			</div>
+
+		</form>
+		<div class="mui-content-padded">
+
+			<button id="register" type="button" class="mui-btn mui-btn-success mui-btn-block">注 &nbsp;&nbsp;&nbsp;&nbsp;册</button>
+		</div>
+        </div>
+		<script src="mui.min.js"></script>
+		<script src="jquery-1.7.2.min.js"></script>
+		<script>
+			$("#register").click(function() {
+				var yzm = $("#yzm").val();
+				var password = $("#password").val();
+				var confirm_pass = $("#confirm_pass").val();
+				if (!/\d{6}/i.test(yzm)) {
+					mui.toast("验证码输入有误!");
+				} else if (password.length < 6) {
+					mui.toast("请输入6位以上密码!");
+				} else if (password != confirm_pass) {
+					mui.toast("两次密码不一致!");
+				}else
+				{
+                                 
+					registerAction(yzm,password);
+                                 
+				}
+               
+			});
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+		</script>
+	</body>
+
+</html>

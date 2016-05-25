@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="app.css" />
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: white;
+			}
+
+			.item {
+				border-radius: 5px;
+				-webkit-border-radius: 5px;
+				-moz-border-radius: 5px;
+			}
+
+			.top {
+				border-radius: 3px;
+				-webkit-border-radius: 3px;
+				-moz-border-radius: 3px;
+				background-color: #fba617;
+				text-align: center;
+				float: left;
+				width: 33%;
+			}
+
+			p {
+				color: white;
+				margin-top: -6px;
+				font-size: 14px;
+			}
+
+			.three-bg img {
+				height: 70px;
+				margin-top: 10px;
+			}
+
+			.two-bg img {
+				height: 70px;
+				margin-top: 10px;
+			}
+
+			.item-bg {
+			}
+
+			.three-bg {
+				background: #d168f8;
+				text-align: center;
+				width: 33%;
+				float: left;
+				margin-left: 1px;
+				margin-right: 1px;
+			}
+
+			.two-bg {
+				background: #8a82f1;
+				text-align: center;
+				width: 33%;
+				float: left;
+				margin-left: 1px;
+				margin-right: 1px;
+			}
+
+			.common_line {
+				margin-top: 3px;
+				clear: both;
+			}
+
+			.common_left {
+				width: 33%;
+				float: left;
+			}
+
+			.top img {
+				height: 30px;
+				margin-top: 2px;
+			}
+
+			.common_left {
+				text-align: center;
+			}
+			.left_item_font p {
+				padding-top: 8px;
+				font-size: 18px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="common_line">
+			<div class="common_left" id="line_one">
+				<img class="common" src="wqxy.jpg" />
+				<div class="left_item_font">
+					<p id="one_p_one">
+						
+					</p>
+				</div>
+			</div>
+
+			<div id="one_two" style="width: 66%;float: left;margin-left: 1px;">
+				<div id="one_two_one">
+					<div class="item top" id="line_one_one">
+						<img src="menpiao.png" />
+						<p id="one_p_two">
+							
+						</p>
+					</div>
+					<div class="item top" id="line_one_two" style="margin-left: 1px;margin-right: 1px;">
+						<img src="canyin.png" />
+						<p id="one_p_three">
+							
+						</p>
+					</div>
+					<div class="item top" id="line_one_three">
+						<img src="baojian.png" />
+						<p id="one_p_four">
+							
+						</p>
+					</div>
+				</div>
+				<div id="one_two_two" style="clear:both;padding-top: 5px;">
+					<div class="item top" id="line_two_one">
+						<img src="zhusu.png" />
+						<p id="one_p_five">
+							
+						</p>
+					</div>
+					<div class="item top" id="line_two_two" style="margin-left: 1px;margin-right: 1px;">
+						<img src="cuozao.png" />
+						<p id="one_p_six">
+							
+						</p>
+					</div>
+					<div class="item top" id="line_two_three">
+						<img src="zudao.png" />
+						<p id="one_p_seven">
+							
+						</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="common_line">
+			<div class="common_left" id="line_two">
+				<img class="common" src="cy.jpg" />
+				<div class="left_item_font">
+					<p id="two_p_one">
+						
+					</p>
+				</div>
+			</div>
+
+			<div class="item two-bg" id="two_two">
+				<img class="big" src="gaoduancanyin.png" />
+				<p id="two_p_two">
+					
+				</p>
+			</div>
+
+			<div class="item two-bg" id="two_three">
+				<img src="tesecanyin.png" />
+				<p id="two_p_three">
+					
+				</p>
+			</div>
+
+		</div>
+
+		<div class="common_line">
+			<div class="common_left" id="line_three">
+
+				<img class="common" src="shfw.jpg" />
+				<div class="left_item_font">
+					<p id="three_p_one">
+						
+					</p>
+				</div>
+
+			</div>
+
+			<div class="item three-bg" id="three_two">
+				<img src="qiche.png" />
+				<p id="three_p_two">
+					
+				</p>
+			</div>
+
+			<div class="item three-bg" id="three_three">
+				<img src="huisuo.png" />
+				<p id="three_p_three">
+					
+				</p>
+			</div>
+
+		</div>
+
+		<!--第一行-->
+
+	</body>
+	<script src="mui.min.js"></script>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+
+	<script>
+        var temp = $(window).width();
+        var divWidth = temp / 3;
+        $(".item").width(divWidth - 2);
+        $(".item").height(divWidth - 2);
+        $(".top").width(divWidth * 2 / 3 - 2);
+        $(".top").height(divWidth / 2 - 3)
+        $(".common").css("height", divWidth);
+        $(".common").css("width", divWidth - 3);
+        $(".left_item_font").width(divWidth - 2);
+        $(".left_item_font").height(divWidth - 2);
+        $(".left_item_font").css("margin-top", -(divWidth - 2));
+		var categoryItem=homeCategory();
+        $("#one_p_one").text(categoryItem[0]);
+        $("#one_p_two").text(categoryItem[1]);
+        $("#one_p_three").text(categoryItem[2]);
+        $("#one_p_four").text(categoryItem[3]);
+        $("#one_p_five").text(categoryItem[4]);
+        $("#one_p_six").text(categoryItem[5]);
+        $("#one_p_seven").text(categoryItem[6]);
+        $("#two_p_one").text(categoryItem[7]);
+        $("#two_p_two").text(categoryItem[8]);
+        $("#two_p_three").text(categoryItem[9]);
+        $("#three_p_one").text(categoryItem[10]);
+        $("#three_p_two").text(categoryItem[11]);
+        $("#three_p_three").text(categoryItem[12]);
+
+        function gotoList(position) {
+            goToMerchantList(position);
+        }
+
+
+        $("#line_one").click(function() {
+            gotoList(0);
+        });
+        $("#line_one_one").click(function() {
+            gotoList(1);
+        });
+        $("#line_one_two").click(function() {
+            gotoList(2);
+        });
+        $("#line_one_three").click(function() {
+            gotoList(3);
+        });
+        $("#line_two_one").click(function() {
+            gotoList(4);
+        });
+        $("#line_two_two").click(function() {
+            gotoList(5);
+        });
+        $("#line_two_three").click(function() {
+            gotoList(6);
+        });
+        $("#line_two").click(function() {
+            gotoList(7);
+        });
+        $("#two_two").click(function() {
+            gotoList(8);
+        });
+        $("#two_three").click(function() {
+            gotoList(9);
+        });
+        $("#line_three").click(function() {
+            gotoList(10);
+        });
+        $("#three_two").click(function() {
+            gotoList(11);
+        });
+        $("#three_three").click(function() {
+            gotoList(12);
+        });
+        mui.init({
+            swipeBack : true //启用右滑关闭功能
+        });
+	</script>
+
+</html>

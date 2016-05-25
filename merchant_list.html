@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="app.css"/>
+		<script src="jquery-1.7.2.min.js"></script>
+	</head>
+
+	<body>
+		<div id="slider" class="mui-slider" >
+			<div id="slider_images" class="mui-slider-group mui-slider-loop">
+
+			</div>
+			<div id="slider-indicator" class="mui-slider-indicator">
+
+			</div>
+		</div>
+		<div id="nodata" style="text-align: center;margin-top: 120px">
+			<img src="nodata.png" />
+			<p>
+				暂时没有符合您的数据
+			</p>
+
+		</div>
+		<ul class="mui-table-view" id="list">
+
+		</ul>
+
+		<script src="mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script>
+        var file_top = bannerFiles();
+        var path = filePath();
+        var images = "";
+        if (file_top == "") {
+        	
+            $("#slider_images").append("<div class='mui-slider-item mui-slider-item-duplicate'><a href='#'> <img src='list_banner_three.jpg'> </a></div>");
+            $("#slider-indicator").append("<div class='mui-indicator mui-active'></div>");
+
+        } else {
+        	
+            if (file_top.indexOf(",") < 0) {
+            	var fullPath=path+file_top;
+                $("#slider_images").append("<div class='mui-slider-item mui-slider-item-duplicate'><a href='#'> <img src='" + fullPath + "'> </a></div>");
+                $("#slider-indicator").append("<div class='mui-indicator mui-active'></div>");
+            } else {
+            	images = file_top.split(",");
+                $("#slider_images").append("<div class='mui-slider-item mui-slider-item-duplicate'><a href='#'> <img src='" + path + images[images.length - 1] + "'> </a></div>");
+                $("#slider-indicator").append("<div class='mui-indicator mui-active'></div>");
+
+                for (var i = 0; i < images.length; i++) {
+                    $("#slider_images").append("<div class='mui-slider-item'><a href='#'> <img src='" + path + images[i] + "'> </a>");
+
+                }
+                for (var i = 1; i < images.length; i++) {
+                    $("#slider-indicator").append("<div class='mui-indicator'></div>");
+                }
+                $("#slider_images").append("<div class='mui-slider-item mui-slider-item-duplicate'><a href='#'> <img src='" + path + images[0] + "'> </a></div>");
+            }
+        }
+       
+        $("#slider_images");
+        $("#slider-indicator");
+        //var temp = window.AndroidWebView.showInfoFromJs();
+        var json = merchantList();
+        var page, num, path;
+        page = json.page;
+        num = json.num;
+        path = json.path;
+        var temp2 = json.lb;
+        if (json.lb.length == 0) {
+            $("#list").hide();
+        } else {
+            $("#nodata").hide();
+            $.each(json.lb, function(i, item) {
+                var lev_shop = item.lev_shop;
+				var lx_id=item.lx_id;
+				var lx_pid=item.lx_pid;
+                var title = item.title;
+                if (item.title.length >= 4) {
+                    title = item.title.substring(0, 4);
+                } else {
+                    title = "&nbsp;&nbsp;&nbsp;&nbsp;";
+                }
+
+                if (item.lev_shop == "") {
+                    lev_shop = 0;
+                }
+                var pf = item.pf;
+                if (item.pf == "") {
+                    pf = 0.0;
+                } else {
+                    pf = pf.substring(0, 3);
+                }
+                var kilometers = item.kilometers;
+                if (item.kilometers == "") {
+                    kilometers = 0;
+                }
+               
+                $("#list").append("<li class='mui-table-view-cell mui-media' >" + "<a href='"+lx_id+"#"+lx_pid+"#" + JSON.stringify(item) + "#" + path + "'>" + "<img class='mui-pull-left' src='" + path + item.pic + "' style='height: 85px;width: 85px; margin-top: -5px;margin-bottom: -5px;margin-left: -10px;'>" + "<div class='mui-media-body' style='float: right;'>" + "<div style='text-align: center;'>" + "<p style='font-size: 16px;color: #000000;'>" + item.mc_gs + "</p>" + "</div>" + "<div >" + "<div style='float: left;'>" + "<div>" + "<div style='float: left;'>" + "<p class='mui-ellipsis' style='margin-top: 2px;color: #1084bc;font-size: 14px;'>" + pf + "分 </p>" + "</div>" + "<p class='mui-ellipsis' style='color: #1084bc;padding-top:2px;font-size: 12px;margin-left: 50px;'>" + title + "</p>" + "</div>" + "<div>" + "<div style='float: left;margin-top: 2px;'>" + "<p class='mui-ellipsis' style='color: #F8623F;'>等级 " + lev_shop + "</p>" + "</div>" + "<div style='margin-left: 50px;'>" + "<img src='one.png' style='height: 18px;' /><img src='two.png' style='height: 18px;'/><img src='three.png' style='height: 18px;'/>" + "</div>" + "</div>" + "<div>" + "<p class='mui-ellipsis' style='color: #FF9913;'>" + item.bz_zk + "</p>" + "</div>" + "</div>" + "<div style='float: right;margin-top:22px;margin-left: 12px;'>" + "<p class='mui-ellipsis' style='font-size: 12px;display: none;'>距离您" + kilometers + "km</p>" + "<p class='mui-ellipsis' style='font-size: 12px;'>评论" + item.sl_pl + "条</p>" + "<p class='mui-ellipsis' style='font-size: 12px;'>交易" + item.sl_jy + "笔</p>" + "</div>" + "</div>" + "</div>" + "</a>" + "</li>");
+
+            });
+        }
+       $("#list li").click(function(){
+            merchantContent($(this).find("a").attr("href"));
+                     });
+                     
+        var slider = mui("#slider");
+        slider.slider({
+            interval : 5000
+        });
+	</script>
+</html>

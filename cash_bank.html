@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+		<style>
+			h5 {
+				margin: 5px 7px;
+			}
+
+			html, body, .mui-content {
+				height: 0px;
+				margin: 0px;
+				background-color: #efeff4;
+			}
+
+			h5.mui-content-padded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+
+			.mui-btn {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+			}
+
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+
+			* {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="mui-content">
+			<div style="text-align: center;margin-top: 5px;">
+				<p style="color:  red;">
+					仅支持绑定储蓄卡
+				</p>
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label>所属银行:</label>
+						<input id="cardName" value="建设银行" type="text" class="mui-input-clear" placeholder="请输入信用卡号">
+					</div>
+					<div class="mui-input-row">
+						<label>银行卡号</label>
+						<input id="cardByNo" val="6225768783951831" type="number" class="mui-input-clear" placeholder="请输入信用卡号">
+					</div>
+
+					<div class="mui-input-row">
+						<label>预留手机号</label>
+						<input id="mobile" value="13578918907" type="tel" class="mui-input-clear" placeholder="请输入预留">
+					</div>
+					<div class="mui-input-row">
+						<label>持卡人姓名</label>
+						<input id="cardByName" value="张铁君" type="text" class="mui-input-clear" placeholder="请输入持卡人姓名">
+					</div>
+					<div class="mui-input-row">
+						<label>身份证号:</label>
+						<input id="cerNumber" value="220281198511205451" type="text" class="mui-input-clear" placeholder="请输入证件号码">
+					</div>
+				</form>
+			</div>
+
+		</div>
+
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.min.js"></script>
+		<script src="../js/jquery-1.7.2.min.js"></script>
+		<script>
+            var cardName = $("#cardName");
+            var cardByNo = $("#cardByNo");
+            var cardByName = $("#cardByName");
+            var cerNumber = $("#cerNumber");
+            var mobile = $("#mobile");
+            function checkData() {
+                if (cardName.val().length == 0) {
+                    // mui.toast("请输入所属银行");
+                    window.AndroidWebView.showMessage("请输入所属银行");
+                } else if (!/^(\d{16}|\d{19})$/i.test(cardByNo.val())) {
+                    //mui.toast("请输入储蓄卡号码");
+
+                    window.AndroidWebView.showMessage("请输入储蓄卡号码");
+                    return;
+                } else if (!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9]|17[0-9])\d{8}$/i.test(mobile.val())) {
+                    //mui.toast("请输入银行预留电话!");
+                    window.AndroidWebView.showMessage("请输入银行预留电话");
+                    return;
+                } else if (cardByName.val().length == 0 || cardByName.val().length < 2) {
+                    // mui.toast("请输入持卡人姓名!");
+                    window.AndroidWebView.showMessage("请输入持卡人姓名!");
+                    return;
+                } else if (cerNumber.val().length == 0) {
+                    // mui.toast("请正确输入证件号码!");
+                    window.AndroidWebView.showMessage("请正确输入证件号码!");
+                    return;
+                } else {
+                    window.AndroidWebView.getInputData(cardName.val(), cardByNo.val(), cardByName.val(), cerNumber.val(), mobile.val());
+
+                }
+            };
+
+		</script>
+	</body>
+
+</html>
